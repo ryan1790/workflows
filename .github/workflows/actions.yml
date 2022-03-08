@@ -3,6 +3,8 @@ on:
   push:
   pull_request:
     types: [closed, assigned, opened, reopened]
+  issues: 
+    types: [opened, deleted, assigned]
 jobs:
   run-github-actions:
     runs-on: ubuntu-latest
