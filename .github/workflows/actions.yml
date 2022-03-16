@@ -1,13 +1,26 @@
 name: Actions Workflow
 on:
-  repository_dispatch:
-    types: [build]
+  # repository_dispatch:
+  #   types: [build]
   # schedule:
   #   - cron: "0 12-16 * * 2,4,6"
   #   - cron: "0/20 3 * 7,9 1"
-  # push:
+  push:
+    branches:
+      - master
+      - 'feature/**'
+      - '!feature/featC' # ignores this branch, must go after patterns
+    tags: # also have tags-ignore — cannot use ignore and normal together
+      - v1.*
+    paths: # also have paths-ignore
+      - '**.js'
+      - '!filename.js' # excludes this specific filename
   pull_request:
     types: [closed, assigned, opened, reopened]
+    branches-ignore:
+      - master
+      - 'feature/*' # meatches feature/featA, feature/featB NOT feature/feat/a
+      - 'feature/**' # will match feature/feat/a
   issues: 
     types: [opened, deleted, assigned]
 jobs:
